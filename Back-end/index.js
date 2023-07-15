@@ -4,6 +4,7 @@ const cors = require("cors");
 const loginRouter = require("./Routes/LoginRouter.js");
 const dataRouter = require("./Routes/handlePumpQuality.js");
 const dbconnect = require("./db.js");
+const adminRouter = require("./Routes/admin.js");
 const app = express();
 
 //connecting to database :-
@@ -29,6 +30,8 @@ app.use(cors());
 app.use("/login",loginRouter);
 
 app.use("/data",dataRouter);
+
+app.use("/admin",adminRouter);
 
 
 
