@@ -1,11 +1,17 @@
 
-// This is your new function. To start, set the name and path on the left.
-
+//Event handler for IVR to handle user input
 exports.handler = function(context, event, callback) {
-  // Here's an example of setting up some TWiML to respond to with this function
+  console.log(event.To);
+  console.log(event.Digits);
+  
+  //Twilio response object
 	let twiml = new Twilio.twiml.VoiceResponse();
-  twiml.say("Thank you");
-  console.log('${event.Digits}');
-
+  if (event.Digits === "2"){
+    twiml.say({ language: 'hi-IN' }, "आसुविधा के लिए खेद है");
+  }
+  else if(event.Digits === "1"){
+    twiml.say({ language: 'hi-IN' }, "धन्यवाद");
+  }
+  //Return the TwiML
   return callback(null, twiml);
 };
