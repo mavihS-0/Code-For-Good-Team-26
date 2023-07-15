@@ -1,12 +1,29 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { useState, useEffect } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+import Layout from "@/components/Layout";
+import PumpOperator from "@/components/PumpOperator";
+import WUC from "@/components/WUC";
 
 export default function Home() {
+  const [userRole, setUserRole] = useState("pumpOperator");
+
   return (
-    <main className={`${inter.className}`}>
-      <h1>Home page</h1>
-    </main>
+    <Layout>
+      <header className="py-10 bg-gray-800">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight text-white">
+            Welcome, {userRole}
+          </h1>
+        </div>
+      </header>
+      <main className="pt-12">
+        <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+          {/* <div className="bg-white rounded-md shadow p-6">Home</div> */}
+          {userRole === "pumpOperator" && <PumpOperator />}
+          {userRole === "WUC" && <WUC />}
+        </div>
+      </main>
+    </Layout>
   );
 }
