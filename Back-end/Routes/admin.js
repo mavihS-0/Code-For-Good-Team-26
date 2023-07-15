@@ -12,6 +12,7 @@ const jwt = require("jsonwebtoken");
 const pumpOperator = require("../feature/Models/pumpOperator");
 const adminOperator = require("../feature/Models/qualityOperator");
 const admin = require("../feature/Models/admin");
+const qualityOperator = require("../feature/Models/qualityOperator");
 
 
 //admin priviliges:-
@@ -55,10 +56,51 @@ adminRouter.post("/pump/delete",(req,res)=>{
     })
     .catch((err)=>{
         console.log(err);
+        res.status(400).send({message:"Couldnt delete the pumpOperator!!!"})
+    })
+})
+
+//CREATING THE WATER QUALITY TEAM MEMBER :-
+adminRouter.post("/quality",(req,res)=>{
+    //retrieving data from the request that the admin wants to add a new pump operator :-
+    const {name,password,number,v_id,s_id} = req.body;
+
+    //create operation:-
+    const newQualityOperator = new qualityOperator({
+        name,
+        password,
+        number,
+        v_id,
+        s_id
+    })
+    newQualityOperator.save()
+    .then((saved)=>{
+        res.send({newPumpOperatorAdded:true})
+    })
+    .catch((err)=>{
+        console.log(err);
         res.status(400).send({message:"Couldnt create a new pumpOperator!!!"})
     })
 })
 
+
+
+
+adminRouter.post("/quality/delete",(req,res)=>{
+    //retrieving data from the request that the admin wants to delete the existing pump operator :-
+    //we can use only the 'number' field to delete the 
+    const {name,password,number,v_id,s_id} = req.body;
+
+    //create operation:-
+    qualityOperator.deleteOne({number:number})
+    .then((deleted)=>{
+        res.send({givenQualityOperatorDeleted:true})
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.status(400).send({message:"Couldn't delete QualityOperator!!!"})
+    })
+})
 
 
 
