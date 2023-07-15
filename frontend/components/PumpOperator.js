@@ -210,13 +210,14 @@ const PumpOperator = () => {
     const value = e.target.value;
     if (e.target.checked) {
       setCheckBoxes((prevState) => [...prevState, value]);
+	  console.log(checkboxes);
     } else {
       setCheckBoxes((prevState) => prevState.filter((item) => item !== value));
     }
   };
 
   const handleSubmit = () => {
-    fetch("/pumpoperator/pumpData", {
+    fetch("/data/pumpData", {
       method: "POST",
       headers: {
         "Content -Type": "application/json",

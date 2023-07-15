@@ -5,9 +5,10 @@ import Layout from "@/components/Layout";
 import PumpOperator from "@/components/PumpOperator";
 import WUC from "@/components/WUC";
 import WaterQualityForm from "@/components/WaterQualityForm";
+import Login from "@/components/Login";
 
 export default function Home() {
-  const [userRole, setUserRole] = useState("WaterQualityForm");
+  const [userRole, setUserRole] = useState("pumpOperator");
 
   return (
     <Layout>
@@ -22,6 +23,7 @@ export default function Home() {
         {userRole === "pumpOperator" && <PumpOperator />}
         {userRole === "WUC" && <WUC />}
         {userRole == "WaterQualityRole" && <WaterQualityForm /> }
+        {userRole === "Login" && <Login />}
       </main>
     </Layout>
   );
