@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import PumpOperator from "@/components/PumpOperator";
 import WUC from "@/components/WUC";
-import WaterQualityForm from "@/components/WQC/WaterQualityForm";
+import WaterQualityForm from "@/components/WaterQualityForm";
 
 export default function Home() {
   const [userRole, setUserRole] = useState("WaterQualityForm");
