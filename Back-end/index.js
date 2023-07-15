@@ -2,7 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const loginRouter = require("./Routes/LoginRouter.js");
+const dataRouter = require("./Routes/handlePumpQuality.js");
+const dbconnect = require("./db.js");
 const app = express();
+
+//connecting to database :-
+dbconnect();
 
 
 
@@ -22,6 +27,8 @@ app.use(cors());
 //login setup
 
 app.use("/login",loginRouter);
+
+app.use("/data",dataRouter);
 
 
 
