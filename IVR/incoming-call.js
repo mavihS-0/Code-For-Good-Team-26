@@ -9,7 +9,7 @@ exports.handler = function(context, event, callback) {
     input: 'speech dtmf',
     timeout: 3,
     numDigits: 1,
-    action: 'https://hello-voice-8069-pkcoy6.twil.io/response-handle',
+    action: 'https://2e8c-2405-201-e010-fc37-7d-6913-cf4c-e610.ngrok-free.app/voic',
     method: 'GET'
   });
 

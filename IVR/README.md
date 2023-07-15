@@ -1,1 +1,1 @@
-The incoming-call.js and response-handle.js are running on Twilio Console as Service Functions.
+The incoming-call.js is running on Twilio Console as a Service Functions.
