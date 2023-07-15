@@ -8,7 +8,7 @@ auth_token = "417806c1a80681062ce6c7468ffab81b"
 client = Client(account_sid, auth_token)
 
 # Read the contents of your local XML file
-with open('./trial.xml', 'r') as file:
+with open('./IVR/fetch.xml', 'r') as file:
     xml_content = file.read()
 
 call = client.calls.create(

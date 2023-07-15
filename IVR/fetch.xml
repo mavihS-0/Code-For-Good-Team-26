@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say language="hi-IN">Please enter your selection.</Say>
+  <Gather input="speech dtmf" timeout="3" numDigits="1" action="https://1a2c-2405-201-e010-fc37-d50-5bd1-df07-e89c.ngrok-free.app/" method="GET">
+        <Say>Press 1 if you have received water today, press 2 if you have not received water</Say>
+  </Gather>
+  <Say>Thank You!</Say>
+</Response>
