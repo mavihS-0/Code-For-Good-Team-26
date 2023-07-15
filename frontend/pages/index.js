@@ -6,7 +6,7 @@ import PumpOperator from "@/components/PumpOperator";
 import WUC from "@/components/WUC";
 
 export default function Home() {
-  const [userRole, setUserRole] = useState("WUC");
+  const [userRole, setUserRole] = useState("pumpOperator");
 
   return (
     <Layout>
