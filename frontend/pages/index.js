@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import PumpOperator from "@/components/PumpOperator";
 import WUC from "@/components/WUC";
+import WaterQualityForm from "@/components/WQC/WaterQualityForm";
 
 export default function Home() {
-  const [userRole, setUserRole] = useState("pumpOperator");
+  const [userRole, setUserRole] = useState("WaterQualityForm");
 
   return (
     <Layout>
@@ -20,6 +21,7 @@ export default function Home() {
       <main className="">
         {userRole === "pumpOperator" && <PumpOperator />}
         {userRole === "WUC" && <WUC />}
+        {userRole == "WaterQualityRole" && <WaterQualityForm /> }
       </main>
     </Layout>
   );
