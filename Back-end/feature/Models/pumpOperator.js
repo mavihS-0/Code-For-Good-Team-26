@@ -17,10 +17,10 @@ const pumpOperatorSchema=new mongoose.Schema({
         required:[true,'password can not be blank'],
         min:0
     },
-    lastActiveAt: Date,
-    FeedbackData:Object,
-    village_id: String,
-    scheme_id:String
+    date: String,
+    pumpData:Array,
+    v_id: String,
+    s_id:String
 })
 
 module.exports= mongoose.model('pumpOperator',pumpOperatorSchema)

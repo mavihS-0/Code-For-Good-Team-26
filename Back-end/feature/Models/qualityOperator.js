@@ -16,10 +16,11 @@ const qualityOperatorSchema=new mongoose.Schema({
         required:[true,'password can not be blank'],
         min:0
     },
-    lastActiveAt: Date,
-    FeedbackData:Object,
-    village_id: String,
-    scheme_id:String
+    date: String,
+    qualityData:Array,
+    //TODO-ADD REQUIRED AND ADD FUNCTIONALITY OF authenticating and sending to the client the v_id and s_id
+    v_id: String,
+    s_id:String
 })
 
 module.exports= mongoose.model('qualityOperator',qualityOperatorSchema)
