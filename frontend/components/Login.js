@@ -11,17 +11,18 @@ const Login = () => {
     
 
     try{
-        const response = await axios.post("http://localhost:5000/login/qualityOperator", {
+        const response = await axios.post("http://localhost:5000/login/admin", {
             name,
             password,
             number,
         });
         if(response.data){
             window.localStorage.setItem('authToken', response.data.authToken)
-            alert("Successfully ");
-        }
+            window.location.href = '/'
+          }
 
         console.log('Authentication successful:', response.data);
+
 
     }catch (error){
         console.error('Error during login:', error);
@@ -73,14 +74,7 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+                
               </div>
               <div className="mt-2">
                 <input
@@ -95,6 +89,7 @@ const Login = () => {
                 />
               </div>
             </div>
+
             <div>
               <label
                 htmlFor="email"
@@ -117,6 +112,33 @@ const Login = () => {
             </div>
 
             <div>
+              <label
+                htmlFor="role"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Role
+              </label>
+              <div className="mt-2">
+                <select onChange={(e) => {
+                  console.log(e.target.value)
+                  localStorage.setItem('role', e.target.value) 
+                }}>
+                  <option value={''}>Select user role</option>
+                  <option value={'pumpOperator'}>
+                    pump operator
+                  </option>
+                  <option value={'WUC'}>
+                    wuc
+                  </option>
+                  <option value={'WaterQualityForm'}>
+                    Water Quality Form
+                  </option>
+                  
+                </select>
+              </div>
+            </div>
+
+            <div>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -126,15 +148,7 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
+          
         </div>
       </div>
     </div>
