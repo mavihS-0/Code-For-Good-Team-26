@@ -28,15 +28,14 @@ dataRouter.post("/pumpData",async (req,res)=>{
             //add a new pumpFeedback data as an object :
             const updatedData = operatorFound.pumpData; 
             updatedData.unshift({
-                Date: new Date().toLocaleDateString(),
+                Date: new Date().toLocaleTimeString(),
                 data
             });
-            res.send(updatedData);
             pumpOperator.updateOne({_id:verified.user.id},{
                 pumpData:updatedData
             })
             .then((updateRes)=>{
-                res.send({formSubmitted : true});
+                res.send({message : "PumpData Submitted Successfully !!"});
             })
             .catch((err)=>{
                 console.log(err);
@@ -63,12 +62,14 @@ dataRouter.post("/pumpData",async (req,res)=>{
 
 dataRouter.post("/qualityData",async (req,res)=>{
     //fetching the pump details submitted by the user:-
-    const { data } = req.body ;
-
+    const { data,authToken } = req.body ;
+    console.log("data recieved on back end:-");
+    console.log(data);
+    console.log(authToken);
     //we need to verify the pumpOperator:-
-    const verified = jwt.verify(req.body.authToken,process.env.JWT_SECRET);
+    const verified = jwt.verify(authToken,process.env.JWT_SECRET);
 
-
+    console.log(verified);
    
     if(verified){
         qualityOperator.findOne({_id:verified.user.id})

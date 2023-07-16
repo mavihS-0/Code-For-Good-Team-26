@@ -13,43 +13,6 @@ const pumpOperator = require("../feature/Models/pumpOperator");
 const qualityOperator = require("../feature/Models/qualityOperator");
 const admin = require("../feature/Models/admin");
 
-//TODO:-dont include "/loginCheck" route on github------------------------------------
-//to check login functionality...storing a new document and hashing password
-LoginRouter.get("/loginCheck",(req,res)=>{
-
-       
-       const hashedPassword = bcrypt.hashSync("999",salt);
-       
-       const newAdmin = new admin({
-           name:"admin-2",
-           password:hashedPassword,
-           number:1111111111
-       })
-       
-       newAdmin.save()
-       .then((result) =>{
-           console.log("logged In successfully !");
-           res.send(result);
-           
-       }).catch((err) => {
-           console.log(err);
-           res.sendStatus(400);
-       });
-
-})
-
-
-//TODO-------------------------------------------------------------------------------------------
-
- 
-    
-    
-    
-    
-
-///////////////////////////////////////////////////////////////////////
-
-// TODO :- AUTHORISATION FUNCTIONALITY CHECKING THE jwt.verify method:-
 
 
 
@@ -58,11 +21,12 @@ LoginRouter.get("/loginCheck",(req,res)=>{
 //pump operator
 LoginRouter.post("/pumpOperator",(req,res)=>{
     
-    const {name,password,number} = req.body;
-    
-    pumpOperator.findOne({number:number})
-    .then((operatorFound) => {
-
+    const name = req.body.name;
+    const password = req.body.password;
+    const number = req.body.number;
+    console.log("Data recieved from front-end",name,password,number);
+    pumpOperator.findOne({number:number}).then((operatorFound) => {
+        console.log("found the document in the pumpOperator collection !!");
         const authenticated = bcrypt.compareSync(password,operatorFound.password);
         if(authenticated){
             //user password matches the database password:-
@@ -72,12 +36,12 @@ LoginRouter.post("/pumpOperator",(req,res)=>{
                     id:operatorFound._id
                 }
             }
-            const authToken = jwt.sign(data,process.env.JWT_SECRET);
-            //TODO-add the below as a third option in the jwt.sign() method 
-            // {
-            //   expiresIn: '1h'
-            // }
-            //TODO---------------------------------------------
+            const authToken = jwt.sign(data,process.env.JWT_SECRET,{
+                expiresIn: '1h'
+              });
+
+            
+
             res.send({login:true,authToken:authToken});
         }
         else{
@@ -85,7 +49,8 @@ LoginRouter.post("/pumpOperator",(req,res)=>{
         }
 
         
-    }).catch((err) => {
+    })
+    .catch((err) => {
         console.log(err);
         res.status(500).json({login:false});
     });
@@ -96,7 +61,9 @@ LoginRouter.post("/pumpOperator",(req,res)=>{
 //qualityTeam
 LoginRouter.post("/qualityOperator",(req,res)=>{
     
-    const {name,password,number} = req.body;
+    const name = req.body.name;
+    const password = req.body.password;
+    const number = req.body.number;
     
     qualityOperator.findOne({number:number})
     .then((qualityOperatorFound) => {
@@ -110,7 +77,9 @@ LoginRouter.post("/qualityOperator",(req,res)=>{
                     id:qualityOperatorFound._id
                 }
             }
-            const authToken = jwt.sign(data,process.env.JWT_SECRET);
+            const authToken = jwt.sign(data,process.env.JWT_SECRET,{
+                expiresIn: '1h'
+              });
             res.send({login:true,authToken:authToken});
         }
         else{
@@ -128,7 +97,6 @@ LoginRouter.post("/qualityOperator",(req,res)=>{
 
 //qualityTeam
 LoginRouter.post("/admin",(req,res)=>{
-    console.log(req.body);
     const name = req.body.name;
     const password = req.body.password;
     const number = req.body.number;
@@ -145,7 +113,9 @@ LoginRouter.post("/admin",(req,res)=>{
                     id:adminFound._id
                 }
             }
-            const authToken = jwt.sign(data,process.env.JWT_SECRET);
+            const authToken = jwt.sign(data,process.env.JWT_SECRET,{
+                expiresIn: '1h'
+              });
             res.send({login:true,authToken:authToken});
         }
         else{

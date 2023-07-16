@@ -11,13 +11,14 @@ const Login = () => {
     
 
     try{
-        const response = await axios.post("http://localhost:5000/login/admin", {
+        const response = await axios.post("http://localhost:5000/login/qualityOperator", {
             name,
             password,
             number,
         });
         if(response.data){
             window.localStorage.setItem('authToken', response.data.authToken)
+            alert("Successfully ");
         }
 
         console.log('Authentication successful:', response.data);

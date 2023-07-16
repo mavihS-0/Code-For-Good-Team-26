@@ -8,7 +8,7 @@ import WaterQualityForm from "@/components/WaterQualityForm";
 import Login from "@/components/Login";
 
 export default function Home() {
-  const [userRole, setUserRole] = useState("pumpOperator");
+  const [userRole, setUserRole] = useState("WaterQualityRole");
 
   return (
     <Layout>

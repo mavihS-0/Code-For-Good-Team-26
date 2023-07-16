@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import axios from "axios";
 import {
   FaceFrownIcon,
   FaceSmileIcon,
@@ -199,38 +200,65 @@ const PumpOperator = () => {
   const [selected, setSelected] = useState(moods[5]);
   const [currentTab, setCurrentTab] = useState(0);
 
-  const [checkboxes, setCheckBoxes] = useState([]);
+  // const [checkboxes, setCheckBoxes] = useState({
+  //   firstshift:false,
+  //   secondshift:false
+  // });
+  const [checkbox1, setcheckbox1] = useState(false);
+  const [checkbox2, setcheckbox2] = useState(false);
+
   const [textareaValue, setTextareaValue] = useState('');
+
+  //TODO-:pass it in the text area event handler
   const handleTextareaChange = (e) => {
 	setTextareaValue(e.target.value);
   }
 
 
-  const handleCheckboxChange = (e) => {
-    const value = e.target.value;
-    if (e.target.checked) {
-      setCheckBoxes((prevState) => [...prevState, value]);
-	  console.log(checkboxes);
-    } else {
-      setCheckBoxes((prevState) => prevState.filter((item) => item !== value));
-    }
+  const handleCheckboxChange1 = (e) => {
+
+    setcheckbox1((prevState)=>!prevState);
+    console.log(checkbox1);
+    // setCheckBoxes({...checkboxes,[e.target.name]:!e.target.checked})
+    // console.log(checkboxes);
+    // if (e.target.checked) {
+    //   setCheckBoxes((prevState) => [...prevState, value]);
+	  // console.log(checkboxes);
+    // } else {
+    //   setCheckBoxes((prevState) => prevState.filter((item) => item !== value));
+    // }
+  };
+
+
+  const handleCheckboxChange2 = (e) => {
+
+    setcheckbox2((prevState)=>!prevState);
+    console.log(checkbox2);
+
+    // setCheckBoxes({...checkboxes,[e.target.name]:!e.target.checked})
+    // console.log(checkboxes);
+    // if (e.target.checked) {
+    //   setCheckBoxes((prevState) => [...prevState, value]);
+	  // console.log(checkboxes);
+    // } else {
+    //   setCheckBoxes((prevState) => prevState.filter((item) => item !== value));
+    // }
   };
 
   const handleSubmit = () => {
-    fetch("/data/pumpData", {
-      method: "POST",
-      headers: {
-        "Content -Type": "application/json",
+    axios.post("http://localhost:5000/data/pumpData",{
+      data:{
+        firstshift:checkbox1,
+        secondshift:checkbox2
       },
-      body: JSON.stringify(checkboxes),
+      authToken:window.localStorage.getItem("authToken")
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Pump operated successfully: ", data);
-      })
-      .catch((error) => {
-        console.log("Error sending the data: ", error);
-      });
+    .then((response) => alert("Data submitted to the backend Successfully !!"))
+    .catch((error) => {
+      console.log("Error sending the data: ", error);
+      alert("Couldnt submit the pump data !!");
+    });
+      
   };
 
   const handleSubmitform = () => {
@@ -317,11 +345,10 @@ const PumpOperator = () => {
                     <input
                       id="candidates"
                       aria-describedby="candidates-description"
-                      name="candidates"
+                      name="firstshift"
                       type="checkbox"
-                      value="data_1"
-                      onChange={handleCheckboxChange}
-                      checked={checkboxes.includes("data_1")}
+                      onChange={handleCheckboxChange1}
+                      checked={checkbox1}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
@@ -342,11 +369,10 @@ const PumpOperator = () => {
                     <input
                       id="offers"
                       aria-describedby="offers-description"
-                      name="offers"
+                      name="secondshift"
                       type="checkbox"
-                      value="data_2"
-                      onChange={handleCheckboxChange}
-                      checked={checkboxes.includes("data_2")}
+                      onChange={handleCheckboxChange2}
+                      checked={checkbox2}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
@@ -397,7 +423,7 @@ const PumpOperator = () => {
                       name="comment"
                       id="comment"
 					  value={textareaValue}
-					  onChange={handleCheckboxChange}
+					  onChange={handleTextareaChange}
                       className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder=" Add your comment..."
                       defaultValue={""}
