@@ -10,8 +10,7 @@ const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken");
 
 const pumpOperator = require("../feature/Models/pumpOperator");
-const adminOperator = require("../feature/Models/qualityOperator");
-const admin = require("../feature/Models/admin");
+
 const qualityOperator = require("../feature/Models/qualityOperator");
 
 
@@ -23,15 +22,18 @@ const qualityOperator = require("../feature/Models/qualityOperator");
 
 adminRouter.post("/pump",(req,res)=>{
     //retrieving data from the request that the admin wants to add a new pump operator :-
-    const {name,password,number,v_id,s_id} = req.body;
+    const name  = req.body.name ; 
+    const password = req.body.password;
+    const number = req.body.number;
+
+
+    const hashedPassword = bcrypt.hashSync(password,salt);
 
     //create operation:-
     const newPump = new pumpOperator({
         name,
         password,
         number,
-        v_id,
-        s_id
     })
     newPump.save()
     .then((saved)=>{
@@ -63,15 +65,21 @@ adminRouter.post("/pump/delete",(req,res)=>{
 //CREATING THE WATER QUALITY TEAM MEMBER :-
 adminRouter.post("/quality",(req,res)=>{
     //retrieving data from the request that the admin wants to add a new pump operator :-
-    const {name,password,number,v_id,s_id} = req.body;
+    console.log(req.data);
 
+    const name  = req.body.name ; 
+    const password = req.body.password;
+    const number = req.body.number;
+
+    
+    const hashedPassword = bcrypt.hashSync(password,salt);
+    console.log(hashedPassword);
     //create operation:-
     const newQualityOperator = new qualityOperator({
         name,
-        password,
+        password:hashedPassword,
         number,
-        v_id,
-        s_id
+        qualityData:[{"test":"testdatadocument"}]
     })
     newQualityOperator.save()
     .then((saved)=>{

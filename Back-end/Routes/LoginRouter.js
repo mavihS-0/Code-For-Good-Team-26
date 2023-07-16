@@ -58,11 +58,12 @@ LoginRouter.get("/loginCheck",(req,res)=>{
 //pump operator
 LoginRouter.post("/pumpOperator",(req,res)=>{
     
-    const {name,password,number} = req.body;
-    
-    pumpOperator.findOne({number:number})
-    .then((operatorFound) => {
-
+    const name = req.body.name;
+    const password = req.body.password;
+    const number = req.body.number;
+    console.log("Data recieved from front-end",name,password,number);
+    pumpOperator.findOne({number:number}).then((operatorFound) => {
+        console.log("found the document in the pumpOperator collection !!");
         const authenticated = bcrypt.compareSync(password,operatorFound.password);
         if(authenticated){
             //user password matches the database password:-
@@ -85,7 +86,8 @@ LoginRouter.post("/pumpOperator",(req,res)=>{
         }
 
         
-    }).catch((err) => {
+    })
+    .catch((err) => {
         console.log(err);
         res.status(500).json({login:false});
     });
@@ -96,7 +98,9 @@ LoginRouter.post("/pumpOperator",(req,res)=>{
 //qualityTeam
 LoginRouter.post("/qualityOperator",(req,res)=>{
     
-    const {name,password,number} = req.body;
+    const name = req.body.name;
+    const password = req.body.password;
+    const number = req.body.number;
     
     qualityOperator.findOne({number:number})
     .then((qualityOperatorFound) => {
@@ -128,7 +132,6 @@ LoginRouter.post("/qualityOperator",(req,res)=>{
 
 //qualityTeam
 LoginRouter.post("/admin",(req,res)=>{
-    console.log(req.body);
     const name = req.body.name;
     const password = req.body.password;
     const number = req.body.number;
