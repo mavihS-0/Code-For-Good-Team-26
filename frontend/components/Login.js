@@ -11,17 +11,18 @@ const Login = () => {
     
 
     try{
-        const response = await axios.post("http://localhost:5000/login/qualityOperator", {
+        const response = await axios.post("http://localhost:5000/login/admin", {
             name,
             password,
             number,
         });
         if(response.data){
             window.localStorage.setItem('authToken', response.data.authToken)
-            alert("Successfully ");
-        }
+            window.location.href = '/'
+          }
 
         console.log('Authentication successful:', response.data);
+
 
     }catch (error){
         console.error('Error during login:', error);
@@ -73,14 +74,7 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+                
               </div>
               <div className="mt-2">
                 <input
@@ -126,15 +120,7 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
+          
         </div>
       </div>
     </div>

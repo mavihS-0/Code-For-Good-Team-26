@@ -8,7 +8,14 @@ import WaterQualityForm from "@/components/WaterQualityForm";
 import Login from "@/components/Login";
 
 export default function Home() {
-  const [userRole, setUserRole] = useState("WaterQualityRole");
+  
+  const [userRole, setUserRole] = useState("WUC");
+
+  useEffect(() => {
+    if (localStorage.getItem('authToken') === null) {
+      window.location.href = '/login'
+    }
+  }, [])
 
   return (
     <Layout>
