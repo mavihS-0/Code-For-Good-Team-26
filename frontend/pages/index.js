@@ -9,9 +9,10 @@ import Login from "@/components/Login";
 
 export default function Home() {
   
-  const [userRole, setUserRole] = useState("WUC");
+  const [userRole, setUserRole] = useState("pumpOperator");
 
   useEffect(() => {
+    setUserRole(localStorage.getItem('role'))
     if (localStorage.getItem('authToken') === null) {
       window.location.href = '/login'
     }
@@ -29,7 +30,7 @@ export default function Home() {
       <main className="">
         {userRole === "pumpOperator" && <PumpOperator />}
         {userRole === "WUC" && <WUC />}
-        {userRole == "WaterQualityRole" && <WaterQualityForm /> }
+        {userRole == "WaterQualityForm" && <WaterQualityForm /> }
         {userRole === "Login" && <Login />}
       </main>
     </Layout>
