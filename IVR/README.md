@@ -4,7 +4,7 @@ This document describes the architecture of the call handling system. The system
 
 ## Components
 
-### Outgoing Call Function (outgoing-call.js)
+### Outgoing Call Function (make_call.py)
 
 - This component calls the function directly from the terminal.
 - It initiates outgoing calls as required by the application.
@@ -30,3 +30,7 @@ This document describes the architecture of the call handling system. The system
 - The file acts as a buffer for storing IVR-related data.
 - Once the function is called to push data to the MongoDB database, the CSV file is automatically truncated.
 
+### Push to Database Script (push-to-DB.py)
+
+- This script is responsible for pushing the content of the `ivr.csv` file row by row to the MongoDB used by the website.
+- The script ensures that data is not duplicated by automatically truncating the `ivr.csv` file after successful data insertion into the database.
