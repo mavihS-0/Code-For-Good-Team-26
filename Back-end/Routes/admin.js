@@ -32,8 +32,9 @@ adminRouter.post("/pump",(req,res)=>{
     //create operation:-
     const newPump = new pumpOperator({
         name,
-        password,
+        password:hashedPassword,
         number,
+        pumpData:[{"testData":"testValue"}]
     })
     newPump.save()
     .then((saved)=>{

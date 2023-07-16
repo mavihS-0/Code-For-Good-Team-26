@@ -19,36 +19,10 @@ const adminSchema=new mongoose.Schema({
 })
 
 
-//TODO:-checking on admin route :-
+
 
 
 module.exports = mongoose.model('admin',adminSchema);
-
-// const adminCheck = ()=>{
-
-// //hashing 
-// const salt = bcrypt.genSaltSync(10);
-// const hashedPassword = bcrypt.hashSync("1234",salt);
-
-// const newAdmin = new admin({
-//     name:"abc",
-//     password:hashedPassword,
-//     number:1234567890
-// })
-
-// newAdmin.save()
-// .then((result) =>{
-//     console.log("logged In successfully !");
-    
-// }).catch((err) => {
-//     console.log(err);
-// });
-
-
-
-// }
-
-
 
 
 

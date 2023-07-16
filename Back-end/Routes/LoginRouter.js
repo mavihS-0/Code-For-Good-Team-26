@@ -13,43 +13,6 @@ const pumpOperator = require("../feature/Models/pumpOperator");
 const qualityOperator = require("../feature/Models/qualityOperator");
 const admin = require("../feature/Models/admin");
 
-//TODO:-dont include "/loginCheck" route on github------------------------------------
-//to check login functionality...storing a new document and hashing password
-LoginRouter.get("/loginCheck",(req,res)=>{
-
-       
-       const hashedPassword = bcrypt.hashSync("999",salt);
-       
-       const newAdmin = new admin({
-           name:"admin-2",
-           password:hashedPassword,
-           number:1111111111
-       })
-       
-       newAdmin.save()
-       .then((result) =>{
-           console.log("logged In successfully !");
-           res.send(result);
-           
-       }).catch((err) => {
-           console.log(err);
-           res.sendStatus(400);
-       });
-
-})
-
-
-//TODO-------------------------------------------------------------------------------------------
-
- 
-    
-    
-    
-    
-
-///////////////////////////////////////////////////////////////////////
-
-// TODO :- AUTHORISATION FUNCTIONALITY CHECKING THE jwt.verify method:-
 
 
 
@@ -73,12 +36,12 @@ LoginRouter.post("/pumpOperator",(req,res)=>{
                     id:operatorFound._id
                 }
             }
-            const authToken = jwt.sign(data,process.env.JWT_SECRET);
-            //TODO-add the below as a third option in the jwt.sign() method 
-            // {
-            //   expiresIn: '1h'
-            // }
-            //TODO---------------------------------------------
+            const authToken = jwt.sign(data,process.env.JWT_SECRET,{
+                expiresIn: '1h'
+              });
+
+            
+
             res.send({login:true,authToken:authToken});
         }
         else{
@@ -114,7 +77,9 @@ LoginRouter.post("/qualityOperator",(req,res)=>{
                     id:qualityOperatorFound._id
                 }
             }
-            const authToken = jwt.sign(data,process.env.JWT_SECRET);
+            const authToken = jwt.sign(data,process.env.JWT_SECRET,{
+                expiresIn: '1h'
+              });
             res.send({login:true,authToken:authToken});
         }
         else{
@@ -148,7 +113,9 @@ LoginRouter.post("/admin",(req,res)=>{
                     id:adminFound._id
                 }
             }
-            const authToken = jwt.sign(data,process.env.JWT_SECRET);
+            const authToken = jwt.sign(data,process.env.JWT_SECRET,{
+                expiresIn: '1h'
+              });
             res.send({login:true,authToken:authToken});
         }
         else{
