@@ -1,6 +1,7 @@
 # Report Analysis and Data Authentication Using Call Handling Architecture
 
 This document outlines the architecture of the report analysis and data authentication system. The system primarily focuses on gathering reports from various stakeholders and leveraging call-based feedback from villagers to ensure data authenticity.
+[Presentation/Demo](https://www.canva.com/design/DAF-BCPgnZQ/RwnPiNhXFgL5zRydW-9uOQ/edit?utm_content=DAF-BCPgnZQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Key Features
 
